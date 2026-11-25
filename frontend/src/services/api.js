@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL || backend-cq8n1d2j8-animukherjee2006-techs-projects.vercel.app;
 
 async function request(endpoint, options = {}) {
   const isFormData = options.body instanceof FormData;
