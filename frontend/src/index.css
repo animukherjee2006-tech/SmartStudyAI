@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Merriweather", Georgia, Cambria, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --color-navy-900: #10213A;
+  --color-navy-800: #172B4D;
+  --color-navy-700: #243B5A;
+  --color-academic-blue: #294C73;
+  --color-cream: #F7F4EC;
+  --color-cream-dark: #EDE8DC;
+  --color-gold: #C49A45;
+  --color-gold-light: #F5ECD7;
+  --color-academic-border: #E5E1D8;
+  --color-academic-muted: #6B7280;
+  --color-academic-success: #39765B;
+  --color-academic-error: #B94A48;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: #F7F4EC;
+    color: #172B4D;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Flashcard 3D flip utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
