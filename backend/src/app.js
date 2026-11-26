@@ -15,7 +15,7 @@ app.set('trust proxy', 1);
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'https://frontend-bbp0ithbs-animukherjee2006-techs-projects.vercel.app',
+    origin: process.env.FRONTEND_URL || 'https://smartstudyai-1-de1j.onrender.com',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
   })
