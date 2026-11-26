@@ -56,7 +56,7 @@ export async function generateStructuredStudyData(systemPrompt, userNotes) {
 export async function generateChatAnswer(systemPrompt, prompt) {
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-3.6-flash',
+      model: 'gemini-3.5-flash',
       contents: prompt,
       config: {
         systemInstruction: systemPrompt,
