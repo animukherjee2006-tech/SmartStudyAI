@@ -1,5 +1,30 @@
 const API_URL = import.meta.env.VITE_API_URL || 'https://smartstudyai-ysy7.onrender.com';
 
+// --- Token management (avoids third-party cookie issues in production) ---
+let authToken = null;
+
+export function setToken(token) {
+  authToken = token;
+  if (token) {
+    sessionStorage.setItem('sb_token', token);
+  } else {
+    sessionStorage.removeItem('sb_token');
+  }
+}
+
+export function clearToken() {
+  authToken = null;
+  sessionStorage.removeItem('sb_token');
+}
+
+export function restoreToken() {
+  const saved = sessionStorage.getItem('sb_token');
+  if (saved) {
+    authToken = saved;
+  }
+  return authToken;
+}
+
 async function request(endpoint, options = {}) {
   const isFormData = options.body instanceof FormData;
   const headers = isFormData
@@ -8,6 +33,11 @@ async function request(endpoint, options = {}) {
         'Content-Type': 'application/json',
         ...(options.headers || {}),
       };
+
+  // Inject Bearer token if available
+  if (authToken) {
+    headers['Authorization'] = `Bearer ${authToken}`;
+  }
 
   const response = await fetch(`${API_URL}${endpoint}`, {
     ...options,

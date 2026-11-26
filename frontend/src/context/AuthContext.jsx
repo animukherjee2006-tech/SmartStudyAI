@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authApi } from '../services/api';
+import { setToken, clearToken, restoreToken } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -14,6 +15,8 @@ export function AuthProvider({ children }) {
 
   const refreshUser = useCallback(async () => {
     try {
+      // Restore token from sessionStorage before calling getMe
+      restoreToken();
       const data = await authApi.getMe();
       setUser(data.user);
       if (data.settings) {
@@ -22,6 +25,7 @@ export function AuthProvider({ children }) {
       return data.user;
     } catch {
       setUser(null);
+      clearToken();
       return null;
     } finally {
       setLoading(false);
@@ -34,6 +38,9 @@ export function AuthProvider({ children }) {
 
   const login = async (credentials) => {
     const data = await authApi.login(credentials);
+    if (data.token) {
+      setToken(data.token);
+    }
     setUser(data.user);
     await refreshUser();
     return data;
@@ -41,6 +48,9 @@ export function AuthProvider({ children }) {
 
   const register = async (payload) => {
     const data = await authApi.register(payload);
+    if (data.token) {
+      setToken(data.token);
+    }
     setUser(data.user);
     await refreshUser();
     return data;
@@ -51,6 +61,7 @@ export function AuthProvider({ children }) {
       await authApi.logout();
     } finally {
       setUser(null);
+      clearToken();
       setSettings({
         notifications: { emailDigest: true, studyReminders: true, quizAlerts: true },
         theme: 'academic_cream',

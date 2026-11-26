@@ -78,6 +78,7 @@ export async function register(req, res) {
       success: true,
       message: 'Account created successfully.',
       user: sanitizeUser(user),
+      token,
     });
   } catch (error) {
     console.error('Register Error:', error.message);
@@ -122,6 +123,7 @@ export async function login(req, res) {
       success: true,
       message: 'Logged in successfully.',
       user: sanitizeUser(user),
+      token,
     });
   } catch (error) {
     console.error('Login Error:', error.message);
